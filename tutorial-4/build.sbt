@@ -6,7 +6,7 @@ version := "0.1"
 
 organization := "com.danielasfregola"
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.7"
 
 resolvers ++= Seq("Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
                   "Spray Repository"    at "http://repo.spray.io")

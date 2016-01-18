@@ -17,6 +17,11 @@ trait QuestionResource extends MyHttpService {
             resourceId = questionService.createQuestion(question),
             ifDefinedStatus = 201, ifEmptyStatus = 409)
           }
+        } ~
+        get{
+          parameters('offset ? 0, 'limit ? 5 ) { (offset, limit) =>
+            complete(questionService.getAllQuestions(offset,limit))
+          }
         }
     } ~
     path(Segment) { id =>

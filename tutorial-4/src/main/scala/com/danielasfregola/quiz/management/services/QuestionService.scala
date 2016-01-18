@@ -6,7 +6,16 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class QuestionService(implicit val executionContext: ExecutionContext) {
 
-  var questions = Vector.empty[Question]
+  var questions = Vector(Question("1","First Question","Is this a default question ?"),
+                                    Question("2","Second Question","Is the palnet earth round ?"),
+                                    Question("3","Third Question","Who is John Galt ?"),
+                                    Question("4","Fourth Question","Will the fat lady sing ?"),
+                                    Question("5","Fifth Question","How far is the universe ?"),
+                                    Question("6","Sixth Question","Is there a multiverse ?"),
+                                    Question("7","Seventh Question","Whats inside a black hole ?"),
+                                    Question("8","Eighth Question","Is the cat dead, alive or both  ?"),
+                                    Question("9","Ninth Question","Can there be peace ?")
+                                  )
 
   def createQuestion(question: Question): Future[Option[String]] = Future {
     questions.find(_.id == question.id) match {
@@ -15,6 +24,10 @@ class QuestionService(implicit val executionContext: ExecutionContext) {
         questions = questions :+ question
         Some(question.id)
     }
+  }
+
+  def getAllQuestions(offset:Int =0, limit:Int =5 ) : Future[Vector[Question]] = Future {
+    questions.slice(offset,offset+limit)
   }
 
   def getQuestion(id: String): Future[Option[Question]] = Future {
@@ -47,4 +60,3 @@ class QuestionService(implicit val executionContext: ExecutionContext) {
 
 
 }
-
