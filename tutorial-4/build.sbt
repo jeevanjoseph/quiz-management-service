@@ -18,7 +18,9 @@ libraryDependencies ++= {
   Seq(
     "io.spray"          %% "spray-can"       % SprayVersion,
     "io.spray"          %% "spray-routing"   % SprayVersion,
+    "io.spray"          %% "spray-http"   % SprayVersion,
     "com.typesafe.akka" %% "akka-slf4j"      % AkkaVersion,
+    "com.fasterxml.jackson.module" % "jackson-module-jsonSchema" % "2.5.2",
     "ch.qos.logback"    %  "logback-classic" % "1.1.2",
     "org.json4s"        %% "json4s-native"   % Json4sVersion,
     "org.json4s"        %% "json4s-ext"      % Json4sVersion
