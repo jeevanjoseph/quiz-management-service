@@ -1,0 +1,38 @@
+apply plugin: 'scala'
+
+repositories{
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies{
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile "org.scala-lang:scala-library:2.11.7"
+    compile "io.spray:spray-can_2.11:1.3.3"
+    compile "io.spray:spray-routing_2.11:1.3.3"
+    compile "io.spray:spray-http_2.11:1.3.3"
+    compile "com.typesafe.akka:akka-slf4j_2.11:2.4.1"
+    compile "ch.qos.logback:logback-classic:1.1.2"
+    compile "org.json4s:json4s-native_2.11:3.3.0"
+    compile "org.json4s:json4s-ext_2.11:3.3.0"
+    compile "com.fasterxml.jackson.module:jackson-module-jsonSchema:2.5.2"
+
+    testCompile "junit:junit:4.11"
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    main = 'com.danielasfregola.quiz.management.Main'
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.runtime
+}
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes("Main-Class": "com.danielasfregola.quiz.management.Main" )
+    }
+}
