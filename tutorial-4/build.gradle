@@ -20,6 +20,10 @@ dependencies{
     testCompile "junit:junit:4.11"
 }
 
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.useAnt = false
+}
+
 task run(type: JavaExec, dependsOn: classes) {
     main = 'com.danielasfregola.quiz.management.Main'
     classpath sourceSets.main.runtimeClasspath
@@ -27,12 +31,13 @@ task run(type: JavaExec, dependsOn: classes) {
 }
 
 jar {
-    from {
-        (configurations.runtime).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+    baseName = 'quiz-service'
     manifest {
         attributes("Main-Class": "com.danielasfregola.quiz.management.Main" )
     }
+}
+
+task libs(type: Copy, dependsOn: jar) {
+    from configurations.runtime
+    into "$buildDir/libs"
 }
